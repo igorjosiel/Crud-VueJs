@@ -25,34 +25,16 @@
       >
       <button type="submit">Clique</button>
 
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Aluno</th>
-            <th>Número de telefone</th>
-            <th>Idade</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="(student, index) in students"
-            :key="index"
-            :class="index % 2 === 0 ? 'lightgray' : 'withe'"
-          >
-            <td>{{ student.name }}</td>
-            <td>{{ student.phoneNumber }}</td>
-            <td>{{ student.age }}</td>
-          </tr>
-        </tbody>
-      </table>
+      <TableData :registers="students" />
     </form>
   </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
+import TableData from './components/TableData.vue';
 
-interface IStudents {
+export interface IStudents {
   name: string,
   phoneNumber: string,
   age: number,
@@ -60,6 +42,9 @@ interface IStudents {
 
 export default defineComponent({
   name: 'App',
+  components: {
+    TableData,
+  },
   data () {
     return {
       name: '',
