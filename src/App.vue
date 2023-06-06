@@ -34,10 +34,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Igor Josiel</td>
-            <td>(32) 9993456-9336</td>
-            <td>26</td>
+          <tr
+            v-for="(student, index) in students"
+            :key="index"
+            :class="index % 2 === 0 ? 'lightgray' : 'withe'"
+          >
+            <td>{{ student.name }}</td>
+            <td>{{ student.phoneNumber }}</td>
+            <td>{{ student.age }}</td>
           </tr>
         </tbody>
       </table>
@@ -74,7 +78,9 @@ export default defineComponent({
 
       this.students.push(newStudent);
 
-      console.log('Data: ', this.students);
+      this.name = '';
+      this.phoneNumber = '',
+      this.age = 16;
     }
   },
 });
@@ -96,5 +102,13 @@ table {
 
 .table th:not([align])  {
   text-align: center;
+}
+
+.lightgray {
+  background: lightgray;
+}
+
+.white {
+  background: whitesmoke;
 }
 </style>
