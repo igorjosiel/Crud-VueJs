@@ -1,17 +1,65 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+  <main>
+    <form @submit.prevent="handleForm">
+      <input
+        class="input is-normal is-info"
+        type="text"
+        placeholder="Aluno"
+        v-model="name"
+        required
+      >
+      <input
+        class="input is-normal is-info"
+        type="text"
+        placeholder="(XX) XXXXX-XXXX"
+        v-model="phoneNumber"
+        required
+      >
+      <input
+        class="input is-normal is-info"
+        type="number"
+        v-model="age"
+        required
+        max="100"
+        min="16"
+      >
+      <button type="submit">Clique</button>
+    </form>
+  </main>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/HelloWorld.vue';
+
+interface IStudents {
+  name: string,
+  phoneNumber: string,
+  age: number,
+}
 
 export default defineComponent({
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  data () {
+    return {
+      name: '',
+      phoneNumber: '',
+      age: 16,
+      students: [] as IStudents[]
+    }
+  },
+  methods: {
+    handleForm() {
+      const newStudent: IStudents = {
+        name: this.name,
+        age: this.age,
+        phoneNumber: this.phoneNumber,
+      }
+
+      this.students.push(newStudent);
+
+      console.log('Data: ', this.students);
+    }
+  },
 });
 </script>
 
