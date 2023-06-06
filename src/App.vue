@@ -24,6 +24,23 @@
         min="16"
       >
       <button type="submit">Clique</button>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Número de telefone</th>
+            <th>Idade</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Igor Josiel</td>
+            <td>(32) 9993456-9336</td>
+            <td>26</td>
+          </tr>
+        </tbody>
+      </table>
     </form>
   </main>
 </template>
@@ -71,5 +88,13 @@ export default defineComponent({
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+table {
+  width: 100%;
+}
+
+.table th:not([align])  {
+  text-align: center;
 }
 </style>
