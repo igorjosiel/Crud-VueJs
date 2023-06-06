@@ -57,8 +57,8 @@ export default defineComponent({
     handleForm() {
       const newStudent: IStudents = {
         name: this.name,
-        age: this.age,
         phoneNumber: this.phoneNumber,
+        age: this.age,
       }
 
       this.students.push(newStudent);
