@@ -25,7 +25,7 @@
       >
       <button type="submit">Clique</button>
 
-      <TableData :registers="students" />
+      <TableData :registers="students" @removeRegister="removeRegister" />
     </form>
   </main>
 </template>
@@ -35,6 +35,7 @@ import { defineComponent } from 'vue';
 import TableData from './components/TableData.vue';
 
 export interface IStudents {
+  id: number,
   name: string,
   phoneNumber: string,
   age: number,
@@ -47,6 +48,7 @@ export default defineComponent({
   },
   data () {
     return {
+      id: 0,
       name: '',
       phoneNumber: '',
       age: 16,
@@ -56,6 +58,7 @@ export default defineComponent({
   methods: {
     handleForm() {
       const newStudent: IStudents = {
+        id: this.id,
         name: this.name,
         phoneNumber: this.phoneNumber,
         age: this.age,
@@ -63,9 +66,14 @@ export default defineComponent({
 
       this.students.push(newStudent);
 
+      this.id += 1;
       this.name = '';
-      this.phoneNumber = '',
+      this.phoneNumber = '';
       this.age = 16;
+    },
+
+    removeRegister(newList: IStudents[]) {
+      this.students = newList;
     }
   },
 });
