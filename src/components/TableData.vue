@@ -18,7 +18,7 @@
         <td v-for="(value, key) in register" :key="key">{{ value }}</td>
         <td class="container-actions">
           <i class="fa-solid fa-trash fa-lg red" @click="remove(register.id)"></i>
-          <i class="fa-sharp fa-solid fa-pen fa-lg blue"></i>
+          <i class="fa-sharp fa-solid fa-pen fa-lg blue" @click="update(register)"></i>
         </td>
       </tr>
     </tbody>
@@ -31,7 +31,7 @@ import { IStudents } from '../App.vue'
 
 export default defineComponent({
   name: 'TableData',
-  emits: ['removeRegister'],
+  emits: ['removeRegister', 'updateRegister'],
   props: {
     registers: {
       type: Array as PropType<IStudents[]>,
@@ -40,9 +40,11 @@ export default defineComponent({
   },
   methods: {
     remove(id: number) {
-      const newList = this.registers.filter(eachRegister => eachRegister.id !== id);
+      this.$emit('removeRegister', id);
+    },
 
-      this.$emit('removeRegister', newList);
+    update(register: IStudents) {
+      this.$emit('updateRegister', register);
     }
   }
 });

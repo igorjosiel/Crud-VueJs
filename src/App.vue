@@ -23,9 +23,14 @@
         max="100"
         min="16"
       >
-      <button type="submit">Clique</button>
 
-      <TableData :registers="students" @removeRegister="removeRegister" />
+      <button type="submit">Salvar</button>
+
+      <TableData
+        :registers="students"
+        @removeRegister="removeRegister"
+        @updateRegister="updateRegister"
+      />
     </form>
   </main>
 </template>
@@ -57,6 +62,26 @@ export default defineComponent({
   },
   methods: {
     handleForm() {
+      const studentFoundIndex = this.students.findIndex(student => student.id === this.id);
+
+      if (studentFoundIndex !== -1) {
+        const newData = {
+          id: this.id,
+          name: this.name,
+          phoneNumber: this.phoneNumber,
+          age: this.age,
+        }
+
+        this.students[studentFoundIndex] = newData;
+
+        this.id += 1;
+        this.name = '';
+        this.phoneNumber = '';
+        this.age = 16;
+
+        return;
+      }
+
       const newStudent: IStudents = {
         id: this.id,
         name: this.name,
@@ -72,8 +97,19 @@ export default defineComponent({
       this.age = 16;
     },
 
-    removeRegister(newList: IStudents[]) {
+    removeRegister(id: number) {
+      const newList = this.students.filter(eachRegister => eachRegister.id !== id);
+
       this.students = newList;
+    },
+    
+    updateRegister(register: IStudents) {
+      const { id, name, phoneNumber, age } = register;
+
+      this.id = id;
+      this.name = name;
+      this.phoneNumber = phoneNumber;
+      this.age = age;
     }
   },
 });
