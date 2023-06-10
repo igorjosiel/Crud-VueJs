@@ -1,22 +1,22 @@
 <template>
   <main>
-    <form @submit.prevent="handleForm">
+    <form @submit.prevent="handleForm" class="box">
       <input
-        class="input is-normal is-info"
+        class="input is-normal is-info input-name input-margin"
         type="text"
         placeholder="Aluno"
         v-model="name"
         required
       >
       <input
-        class="input is-normal is-info"
+        class="input is-normal is-info input-phoneNumber input-margin"
         type="text"
         placeholder="(XX) XXXXX-XXXX"
         v-model="phoneNumber"
         required
       >
       <input
-        class="input is-normal is-info"
+        class="input is-normal is-info input-age input-margin"
         type="number"
         v-model="age"
         required
@@ -24,14 +24,14 @@
         min="16"
       >
 
-      <button type="submit">Salvar</button>
+      <button class="button is-info font-bold button-margin" type="submit">Salvar</button>
+    </form>
 
-      <TableData
+    <TableData
         :registers="students"
         @removeRegister="removeRegister"
         @updateRegister="updateRegister"
-      />
-    </form>
+    />
   </main>
 </template>
 
@@ -129,15 +129,31 @@ table {
   width: 100%;
 }
 
+.input-margin {
+    margin: 1%;
+}
+
+.button-margin {
+  margin: 1%;
+}
+
 .table th:not([align])  {
   text-align: center;
 }
 
-.lightgray {
-  background: lightgray;
+.font-bold {
+  font-weight: 600;
 }
 
-.white {
-  background: whitesmoke;
+.input-name {
+    width: 40%;
+}
+
+.input-phoneNumber {
+    width: 20%;
+}
+
+.input-age {
+    width: 20%;
 }
 </style>

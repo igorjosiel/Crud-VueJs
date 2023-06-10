@@ -11,7 +11,7 @@
     </thead>
     <tbody>
       <tr
-        v-for="register in registers"
+        v-for="(register, index) in registers"
         :key="register.id"
         :class="index % 2 === 0 ? 'lightgray' : 'withe'"
       >
@@ -27,7 +27,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { IStudents } from '../App.vue'
+import { IStudents } from '../views/Students.vue';
 
 export default defineComponent({
   name: 'TableData',
@@ -65,5 +65,13 @@ export default defineComponent({
 
   .blue {
     color: rgb(64, 136, 194);
+  }
+  
+  .lightgray {
+    background: lightgray;
+  }
+
+  .white {
+    background: whitesmoke;
   }
 </style>
