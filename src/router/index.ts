@@ -3,7 +3,7 @@ import StudentsView from '../views/Students.vue';
 import Courses from '../views/Courses.vue';
 
 const routes: RouteRecordRaw[] = [{
-    path: '/',
+    path: '/students',
     name: 'Students',
     component: StudentsView,
 },
