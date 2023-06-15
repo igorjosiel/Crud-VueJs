@@ -2,11 +2,7 @@
   <table class="table">
     <thead>
       <tr>
-        <th>Id</th>
-        <th>Aluno</th>
-        <th>Número de telefone</th>
-        <th>Idade</th>
-        <th>Ações</th>
+        <th v-for="(cell, index) in header" :key="index">{{ cell }}</th>
       </tr>
     </thead>
     <tbody>
@@ -36,7 +32,11 @@ export default defineComponent({
     registers: {
       type: Array as PropType<IStudents[]>,
       required: true,
-    }
+    },
+    header: {
+      type: Array as PropType<string[]>,
+      required: true,
+    },
   },
   methods: {
     remove(id: number) {
