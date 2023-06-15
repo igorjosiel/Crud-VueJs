@@ -28,9 +28,10 @@
     </form>
 
     <TableData
-        :registers="students"
-        @removeRegister="removeRegister"
-        @updateRegister="updateRegister"
+      :registers="students"
+      :header="headerTable"
+      @removeRegister="removeRegister"
+      @updateRegister="updateRegister"
     />
   </main>
 </template>
@@ -57,7 +58,8 @@ export default defineComponent({
       name: '',
       phoneNumber: '',
       age: 16,
-      students: [] as IStudents[]
+      students: [] as IStudents[],
+      headerTable: ['Id', 'Aluno', 'Número de telefone', 'Idade', 'Ações'],
     }
   },
   methods: {
@@ -114,46 +116,3 @@ export default defineComponent({
   },
 });
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-
-table {
-  width: 100%;
-}
-
-.input-margin {
-    margin: 1%;
-}
-
-.button-margin {
-  margin: 1%;
-}
-
-.table th:not([align])  {
-  text-align: center;
-}
-
-.font-bold {
-  font-weight: 600;
-}
-
-.input-name {
-    width: 40%;
-}
-
-.input-phoneNumber {
-    width: 20%;
-}
-
-.input-age {
-    width: 20%;
-}
-</style>
