@@ -37,9 +37,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 import TableData from '../components/TableData.vue';
 import { IStudents } from '../interfaces';
+import { key } from '../store';
 
 export default defineComponent({
   name: 'StudentsView',
@@ -52,7 +54,6 @@ export default defineComponent({
       name: '',
       phoneNumber: '',
       age: 16,
-      students: [] as IStudents[],
       headerTable: ['Id', 'Aluno', 'Número de telefone', 'Idade', 'Ações'],
     }
   },
@@ -108,5 +109,12 @@ export default defineComponent({
       this.age = age;
     }
   },
+  setup() {
+    const store = useStore(key);
+
+    return {
+      students: computed(() => store.state.students),
+    }
+  }
 });
 </script>
