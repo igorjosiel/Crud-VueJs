@@ -65,9 +65,11 @@ export default defineComponent({
     },
 
     removeRegister(id: number) {
-      const newList = this.courses.filter(eachRegister => eachRegister.id !== id);
+      this.store.commit('REMOVE_COURSE', id);
 
-      this.courses = newList;
+      this.id += 1;
+      this.course = '';
+      this.duration = 1;
     },
     
     updateRegister(register: ICourses) {

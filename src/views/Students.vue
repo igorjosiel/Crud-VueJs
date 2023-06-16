@@ -75,9 +75,12 @@ export default defineComponent({
     },
 
     removeRegister(id: number) {
-      const newList = this.students.filter(eachRegister => eachRegister.id !== id);
+      this.store.commit('REMOVE_STUDENT', id);
 
-      this.students = newList;
+      this.id += 1;
+      this.name = '';
+      this.phoneNumber = '';
+      this.age = 16;
     },
     
     updateRegister(register: IStudents) {
