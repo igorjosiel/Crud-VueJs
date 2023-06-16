@@ -14,8 +14,6 @@ export const store = createStore({
 
         'UPDATE_STUDENT'(state, newDataStudent: IStudents) {
             state.students[newDataStudent.id] = newDataStudent;
-    
-            return;
         },
 
         'REMOVE_STUDENT'(state, id: number) {
@@ -24,18 +22,14 @@ export const store = createStore({
             state.students = newListOfStudents;
         },
 
-        'ADD_CHANGE_COURSE'(state, newDataCourse: ICourses) {
-            const courseFoundIndex = state.courses.findIndex(course => course.id === newDataCourse.id);
-
-            // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
-            if (courseFoundIndex !== -1) {
-                state.courses[courseFoundIndex] = newDataCourse;
-        
-                return;
-            }
-
-            state.courses.push(newDataCourse);
+        'ADD_COURSE'(state, newCourse: ICourses) {
+            state.courses.push(newCourse);
         },
+
+        'UPDATE_COURSE'(state, newDataCourse: ICourses) {
+            state.courses[newDataCourse.id] = newDataCourse;
+        },
+
         'REMOVE_COURSE'(state, id: number) {
             const newListOfCourses = state.courses.filter(course => course.id !== id);
 
