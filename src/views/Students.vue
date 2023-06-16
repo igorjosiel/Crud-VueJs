@@ -31,7 +31,7 @@
       :registers="students"
       :header="headerTable"
       @removeRegister="removeRegister"
-      @updateRegister="updateRegister"
+      @updateRegister="fillUpFormWhenUpdateRegister"
     />
   </main>
 </template>
@@ -66,31 +66,46 @@ export default defineComponent({
         age: this.age,
       }
 
-      this.store.commit('ADD_CHANGE_STUDENT', student);
+      const studentFoundIndex = this.students.findIndex(student => student.id === this.id);
 
-      this.id += 1;
-      this.name = '';
-      this.phoneNumber = '';
-      this.age = 16;
+      // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
+      if (studentFoundIndex !== -1) {
+        this.store.commit('UPDATE_STUDENT', student);
+
+        this.clearForm('update');
+  
+        return;
+      }
+
+      this.store.commit('ADD_STUDENT', student);
+
+      this.clearForm('add');
     },
 
     removeRegister(id: number) {
       this.store.commit('REMOVE_STUDENT', id);
 
-      this.id += 1;
-      this.name = '';
-      this.phoneNumber = '';
-      this.age = 16;
+      this.clearForm('delete');
     },
     
-    updateRegister(register: IStudents) {
+    fillUpFormWhenUpdateRegister(register: IStudents) {
       const { id, name, phoneNumber, age } = register;
 
       this.id = id;
       this.name = name;
       this.phoneNumber = phoneNumber;
       this.age = age;
-    }
+    },
+
+    clearForm(option: 'add' | 'delete' | 'update') {
+      this.name = '';
+      this.phoneNumber = '';
+      this.age = 16;
+
+      if (option === 'add') {
+        this.id += 1;
+      }
+    },
   },
   setup() {
     const store = useStore(key);

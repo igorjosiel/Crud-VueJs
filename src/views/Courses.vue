@@ -24,7 +24,7 @@
       :registers="courses"
       :header="headerTable"
       @removeRegister="removeRegister"
-      @updateRegister="updateRegister"
+      @updateRegister="fillUpFormWhenUpdateRegister"
     />
   </main>
 </template>
@@ -67,18 +67,25 @@ export default defineComponent({
     removeRegister(id: number) {
       this.store.commit('REMOVE_COURSE', id);
 
-      this.id += 1;
-      this.course = '';
-      this.duration = 1;
+      
     },
     
-    updateRegister(register: ICourses) {
+    fillUpFormWhenUpdateRegister(register: ICourses) {
       const { id, course, duration } = register;
 
       this.id = id;
       this.course = course;
       this.duration = duration;
-    }
+    },
+
+    // clearForm(option: string) {
+    //   if (option === 'remove') {
+
+    //   }
+    //   this.id += 1;
+    //   this.course = '';
+    //   this.duration = 1;
+    // },
   },
   setup () {
     const store = useStore(key);
