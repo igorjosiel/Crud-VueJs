@@ -86,7 +86,7 @@ export default defineComponent({
         age: this.age,
       }
 
-      this.students.push(newStudent);
+      this.store.commit('ADD_STUDENT', newStudent);
 
       this.id += 1;
       this.name = '';
@@ -113,7 +113,7 @@ export default defineComponent({
     const store = useStore(key);
 
     return {
-      students: computed(() => store.state.students),
+      store, students: computed(() => store.state.students),
     }
   }
 });
