@@ -51,31 +51,13 @@ export default defineComponent({
   },
   methods: {
      handleForm() {
-      const courseFoundIndex = this.courses.findIndex(course => course.id === this.id);
-
-      if (courseFoundIndex !== -1) {
-        const newData = {
-          id: this.id,
-          course: this.course,
-          duration: this.duration,
-        }
-
-        this.courses[courseFoundIndex] = newData;
-
-        this.id += 1;
-        this.course = '';
-        this.duration = 1;
-
-        return;
-      }
-
-      const newCourse: ICourses = {
+      const course: ICourses = {
         id: this.id,
         course: this.course,
         duration: this.duration,
       }
 
-      this.courses.push(newCourse);
+      this.store.commit('ADD_CHANGE_COURSE', course);
 
       this.id += 1;
       this.course = '';
@@ -100,7 +82,7 @@ export default defineComponent({
     const store = useStore(key);
 
     return {
-      courses: computed(() => store.state.courses),
+      store, courses: computed(() => store.state.courses),
     }
   }
 });

@@ -59,34 +59,14 @@ export default defineComponent({
   },
   methods: {
     handleForm() {
-      const studentFoundIndex = this.students.findIndex(student => student.id === this.id);
-
-      if (studentFoundIndex !== -1) {
-        const newData = {
-          id: this.id,
-          name: this.name,
-          phoneNumber: this.phoneNumber,
-          age: this.age,
-        }
-
-        this.students[studentFoundIndex] = newData;
-
-        this.id += 1;
-        this.name = '';
-        this.phoneNumber = '';
-        this.age = 16;
-
-        return;
-      }
-
-      const newStudent: IStudents = {
+      const student: IStudents = {
         id: this.id,
         name: this.name,
         phoneNumber: this.phoneNumber,
         age: this.age,
       }
 
-      this.store.commit('ADD_STUDENT', newStudent);
+      this.store.commit('ADD_CHANGE_STUDENT', student);
 
       this.id += 1;
       this.name = '';
