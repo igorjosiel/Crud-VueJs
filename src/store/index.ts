@@ -4,12 +4,16 @@ import { IStore, IStudents, ICourses } from "@/interfaces";
 
 export const store = createStore({
     state: {
+        idStudent: 0,
+        idCourse: 0,
         students: [] as IStudents[],
         courses: [] as ICourses[],
     },
     mutations: {
         'ADD_STUDENT'(state, newStudent: IStudents) {
             state.students.push(newStudent);
+
+            state.idStudent += 1;
         },
 
         'UPDATE_STUDENT'(state, newDataStudent: IStudents) {
@@ -24,6 +28,8 @@ export const store = createStore({
 
         'ADD_COURSE'(state, newCourse: ICourses) {
             state.courses.push(newCourse);
+
+            state.idCourse += 1;
         },
 
         'UPDATE_COURSE'(state, newDataCourse: ICourses) {
