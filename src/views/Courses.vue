@@ -30,9 +30,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, computed } from 'vue';
+import { useStore } from 'vuex';
 import TableData from '../components/TableData.vue';
 import { ICourses } from '../interfaces';
+import { key } from '@/store';
 
 export default defineComponent({
   name: 'CoursesView',
@@ -44,7 +46,6 @@ export default defineComponent({
       id: 0,
       course: '',
       duration: 1,
-      courses: [] as ICourses[],
       headerTable: ['Id', 'Curso', 'Duração', 'Ações'],
     }
   },
@@ -93,6 +94,13 @@ export default defineComponent({
       this.id = id;
       this.course = course;
       this.duration = duration;
+    }
+  },
+  setup () {
+    const store = useStore(key);
+
+    return {
+      courses: computed(() => store.state.courses),
     }
   }
 });
