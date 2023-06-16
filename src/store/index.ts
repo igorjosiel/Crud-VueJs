@@ -20,7 +20,12 @@ export const store = createStore({
 
             state.students.push(newDataStudent);
         },
-        
+        'REMOVE_STUDENT'(state, id: number) {
+            const newListOfStudents = state.students.filter(student => student.id !== id);
+
+            state.students = newListOfStudents;
+        },
+
         'ADD_CHANGE_COURSE'(state, newDataCourse: ICourses) {
             const courseFoundIndex = state.courses.findIndex(course => course.id === newDataCourse.id);
 
@@ -32,6 +37,11 @@ export const store = createStore({
             }
 
             state.courses.push(newDataCourse);
+        },
+        'REMOVE_COURSE'(state, id: number) {
+            const newListOfCourses = state.courses.filter(course => course.id !== id);
+
+            state.courses = newListOfCourses;
         },
     }
 });
