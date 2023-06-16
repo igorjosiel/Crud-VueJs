@@ -8,18 +8,16 @@ export const store = createStore({
         courses: [] as ICourses[],
     },
     mutations: {
-        'ADD_CHANGE_STUDENT'(state, newDataStudent: IStudents) {
-            const studentFoundIndex = state.students.findIndex(student => student.id === newDataStudent.id);
-
-            // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
-            if (studentFoundIndex !== -1) {
-                state.students[studentFoundIndex] = newDataStudent;
-        
-                return;
-            }
-
-            state.students.push(newDataStudent);
+        'ADD_STUDENT'(state, newStudent: IStudents) {
+            state.students.push(newStudent);
         },
+
+        'UPDATE_STUDENT'(state, newDataStudent: IStudents) {
+            state.students[newDataStudent.id] = newDataStudent;
+    
+            return;
+        },
+
         'REMOVE_STUDENT'(state, id: number) {
             const newListOfStudents = state.students.filter(student => student.id !== id);
 
