@@ -70,22 +70,22 @@ export default defineComponent({
 
       // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
       if (studentFoundIndex !== -1) {
-        this.store.commit('UPDATE_STUDENT', student);
-
         this.clearForm('update');
+
+        this.store.commit('UPDATE_STUDENT', student);
   
         return;
       }
 
-      this.store.commit('ADD_STUDENT', student);
-
       this.clearForm('add');
+
+      this.store.commit('ADD_STUDENT', student);
     },
 
     removeRegister(id: number) {
-      this.store.commit('REMOVE_STUDENT', id);
-
       this.clearForm('delete');
+      
+      this.store.commit('REMOVE_STUDENT', id);
     },
     
     fillUpFormWhenUpdateRegister(register: IStudents) {

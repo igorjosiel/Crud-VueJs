@@ -57,17 +57,26 @@ export default defineComponent({
         duration: this.duration,
       }
 
-      this.store.commit('ADD_CHANGE_COURSE', course);
+      const courseFoundIndex = this.courses.findIndex(course => course.id === this.id);
 
-      this.id += 1;
-      this.course = '';
-      this.duration = 1;
+      // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
+      if (courseFoundIndex !== -1) {
+        this.store.commit('UPDATE_COURSE', course);
+
+        this.clearForm('update');
+  
+        return;
+      }
+
+      this.store.commit('ADD_COURSE', course);
+
+      this.clearForm('add');
     },
 
     removeRegister(id: number) {
       this.store.commit('REMOVE_COURSE', id);
 
-      
+      this.clearForm('delete');
     },
     
     fillUpFormWhenUpdateRegister(register: ICourses) {
@@ -78,14 +87,14 @@ export default defineComponent({
       this.duration = duration;
     },
 
-    // clearForm(option: string) {
-    //   if (option === 'remove') {
+    clearForm(option: 'add' | 'delete' | 'update') {
+      this.course = '';
+      this.duration = 1;
 
-    //   }
-    //   this.id += 1;
-    //   this.course = '';
-    //   this.duration = 1;
-    // },
+      if (option === 'add') {
+        this.id += 1;
+      }
+    },
   },
   setup () {
     const store = useStore(key);
