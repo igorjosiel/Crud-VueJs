@@ -23,14 +23,14 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import { IStudents } from '../views/Students.vue';
+import { IStudents, ICourses } from '../interfaces';
 
 export default defineComponent({
   name: 'TableData',
   emits: ['removeRegister', 'updateRegister'],
   props: {
     registers: {
-      type: Array as PropType<IStudents[]>,
+      type: Array as PropType<IStudents[] | ICourses[]>,
       required: true,
     },
     header: {

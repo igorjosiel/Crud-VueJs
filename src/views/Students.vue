@@ -39,13 +39,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TableData from '../components/TableData.vue';
-
-export interface IStudents {
-  id: number,
-  name: string,
-  phoneNumber: string,
-  age: number,
-}
+import { IStudents } from '../interfaces';
 
 export default defineComponent({
   name: 'StudentsView',

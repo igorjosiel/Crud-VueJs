@@ -32,12 +32,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TableData from '../components/TableData.vue';
-
-export interface ICourses {
-  id: number,
-  course: string,
-  duration: number,
-}
+import { ICourses } from '../interfaces';
 
 export default defineComponent({
   name: 'CoursesView',
