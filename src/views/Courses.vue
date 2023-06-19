@@ -43,7 +43,6 @@ export default defineComponent({
   },
   data () {
     return {
-      id: 0,
       course: '',
       duration: 1,
       headerTable: ['Id', 'Curso', 'Duração', 'Ações'],
@@ -52,56 +51,60 @@ export default defineComponent({
   methods: {
      handleForm() {
       const course: ICourses = {
-        id: this.id,
+        id: this.selectedIdCourse,
         course: this.course,
         duration: this.duration,
       }
 
-      const courseFoundIndex = this.courses.findIndex(course => course.id === this.id);
+      const courseFoundIndex = this.courses.findIndex(course => course.id === this.selectedIdCourse);
 
       // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
       if (courseFoundIndex !== -1) {
         this.store.commit('UPDATE_COURSE', course);
 
-        this.clearForm('update');
+        this.clearForm();
   
         return;
       }
 
-      this.store.commit('ADD_COURSE', course);
+      this.store.commit('ADD_COURSE', {
+        ...course,
+        id: this.currentIdCourse,
+      });
 
-      this.clearForm('add');
+      this.clearForm();
     },
 
     removeRegister(id: number) {
       this.store.commit('REMOVE_COURSE', id);
+      this.store.commit('UPDATE_SELECTED_ID_COURSE', -1);
 
-      this.clearForm('delete');
+      this.clearForm();
     },
     
     fillUpFormWhenUpdateRegister(register: ICourses) {
       const { id, course, duration } = register;
 
-      this.id = id;
       this.course = course;
       this.duration = duration;
+
+      this.store.commit('UPDATE_SELECTED_ID_COURSE', id);
     },
 
-    clearForm(option: 'add' | 'delete' | 'update') {
+    clearForm() {
       this.course = '';
       this.duration = 1;
-
-      if (option === 'add') {
-        this.id += 1;
-      }
     },
   },
   setup () {
     const store = useStore(key);
 
     return {
-      store, courses: computed(() => store.state.courses),
-    }
+      store,
+      courses: computed(() => store.state.courses),
+      currentIdCourse: computed(() => store.state.currentIdCourse),
+      selectedIdCourse: computed(() => store.state.selectedIdCourse),
+    };
   }
 });
 </script>
