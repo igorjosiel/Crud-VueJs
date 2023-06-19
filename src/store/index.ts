@@ -4,7 +4,8 @@ import { IStore, IStudents, ICourses } from "@/interfaces";
 
 export const store = createStore({
     state: {
-        idStudent: 0,
+        currentIdStudent: 0,
+        selectedIdStudent: -1,
         idCourse: 0,
         students: [] as IStudents[],
         courses: [] as ICourses[],
@@ -13,11 +14,17 @@ export const store = createStore({
         'ADD_STUDENT'(state, newStudent: IStudents) {
             state.students.push(newStudent);
 
-            state.idStudent += 1;
+            state.currentIdStudent += 1;
         },
 
         'UPDATE_STUDENT'(state, newDataStudent: IStudents) {
-            state.students[newDataStudent.id] = newDataStudent;
+            const studentFoundIndex = state.students.findIndex(student => student.id === newDataStudent.id);
+            
+            state.students[studentFoundIndex] = newDataStudent;
+        },
+
+        'UPDATE_SELECTED_ID_STUDENT'(state, id: number) {
+            state.selectedIdStudent = id;
         },
 
         'REMOVE_STUDENT'(state, id: number) {
