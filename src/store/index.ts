@@ -6,6 +6,8 @@ export const store = createStore({
     state: {
         currentIdStudent: 0,
         selectedIdStudent: -1,
+        currentIdCourse: 0,
+        selectedIdCourse: -1,
         idCourse: 0,
         students: [] as IStudents[],
         courses: [] as ICourses[],
@@ -36,11 +38,17 @@ export const store = createStore({
         'ADD_COURSE'(state, newCourse: ICourses) {
             state.courses.push(newCourse);
 
-            state.idCourse += 1;
+            state.currentIdCourse += 1;
         },
 
         'UPDATE_COURSE'(state, newDataCourse: ICourses) {
-            state.courses[newDataCourse.id] = newDataCourse;
+            const courseFoundIndex = state.courses.findIndex(course => course.id === newDataCourse.id);
+            
+            state.courses[courseFoundIndex] = newDataCourse;
+        },
+
+        'UPDATE_SELECTED_ID_COURSE'(state, id: number) {
+            state.selectedIdCourse = id;
         },
 
         'REMOVE_COURSE'(state, id: number) {
