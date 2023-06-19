@@ -14,6 +14,8 @@ export interface ICourses {
 export interface IStore {
     currentIdStudent: number,
     selectedIdStudent: number,
+    currentIdCourse: number,
+    selectedIdCourse: number,
     idCourse: number,
     students: IStudents[],
     courses: ICourses[],
