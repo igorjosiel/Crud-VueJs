@@ -50,7 +50,6 @@ export default defineComponent({
   },
   data () {
     return {
-      id: 0,
       name: '',
       phoneNumber: '',
       age: 16,
@@ -60,59 +59,65 @@ export default defineComponent({
   methods: {
     handleForm() {
       const student: IStudents = {
-        id: this.id,
+        id: this.selectedIdStudent,
         name: this.name,
         phoneNumber: this.phoneNumber,
         age: this.age,
       }
 
-      const studentFoundIndex = this.students.findIndex(student => student.id === this.id);
+      const studentFoundIndex = this.students.findIndex(student => student.id === this.selectedIdStudent);
+
+      this.store.commit('UPDATE_SELECTED_ID_STUDENT', -1);
 
       // Se o índece do item for diferente de -1 signica que é uma alteração no item encontrado
       if (studentFoundIndex !== -1) {
-        this.clearForm('update');
-
         this.store.commit('UPDATE_STUDENT', student);
+
+        this.clearForm();
   
         return;
       }
+      
+      this.store.commit('ADD_STUDENT', {
+        ...student,
+        id: this.currentIdStudent,
+      });
 
-      this.clearForm('add');
-
-      this.store.commit('ADD_STUDENT', student);
+      this.clearForm();
     },
 
     removeRegister(id: number) {
-      this.clearForm('delete');
-      
       this.store.commit('REMOVE_STUDENT', id);
+      this.store.commit('UPDATE_SELECTED_ID_STUDENT', -1);
+
+      this.clearForm();
     },
     
     fillUpFormWhenUpdateRegister(register: IStudents) {
       const { id, name, phoneNumber, age } = register;
 
-      this.id = id;
       this.name = name;
       this.phoneNumber = phoneNumber;
       this.age = age;
+
+      this.store.commit('UPDATE_SELECTED_ID_STUDENT', id);
     },
 
-    clearForm(option: 'add' | 'delete' | 'update') {
+    clearForm() {
       this.name = '';
       this.phoneNumber = '';
       this.age = 16;
-
-      if (option === 'add') {
-        this.id += 1;
-      }
     },
   },
   setup() {
     const store = useStore(key);
 
     return {
-      store, students: computed(() => store.state.students),
-    }
+      store,
+      students: computed(() => store.state.students),
+      currentIdStudent: computed(() => store.state.currentIdStudent),
+      selectedIdStudent: computed(() => store.state.selectedIdStudent),
+    };
   }
 });
 </script>
