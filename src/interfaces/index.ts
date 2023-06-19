@@ -12,7 +12,8 @@ export interface ICourses {
 }
 
 export interface IStore {
-    idStudent: number,
+    currentIdStudent: number,
+    selectedIdStudent: number,
     idCourse: number,
     students: IStudents[],
     courses: ICourses[],
